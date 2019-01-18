@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar wt-who-am-i/target/who-am-i.jar
+web: java -Dserver.port=$PORT -jar who-am-i/target/who-am-i.jar
