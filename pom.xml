@@ -12,7 +12,6 @@
     <artifactId>who-am-i</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>who-am-i</name>
-    <packaging>jar</packaging>
     <description>A game to match faces to names.</description>
 
     <properties>
