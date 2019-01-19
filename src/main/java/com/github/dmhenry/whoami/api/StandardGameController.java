@@ -19,7 +19,7 @@ import java.net.URI;
 @RequestMapping("/api/v1.0/games/")
 @Api(value = "Who Am I?", description = "A game to match names to faces.")
 @SuppressWarnings("unused")
-class GameController {
+class StandardGameController {
 
     @Autowired
     private GameService gameService;
