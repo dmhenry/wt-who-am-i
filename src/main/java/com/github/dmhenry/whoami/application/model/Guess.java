@@ -1,7 +1,10 @@
 package com.github.dmhenry.whoami.application.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Guess {
 
+    @NotNull
     private int candidateId;
 
     public int getCandidateId() {

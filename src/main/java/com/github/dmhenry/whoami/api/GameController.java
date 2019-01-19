@@ -1,4 +1,4 @@
-package com.github.dmhenry.whoami.presentation;
+package com.github.dmhenry.whoami.api;
 
 import com.github.dmhenry.whoami.application.GameService;
 import com.github.dmhenry.whoami.application.model.Game;
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -37,6 +38,7 @@ class GameController {
     }
 
     @PostMapping("standard/{id}")
+    @Valid
     ResponseEntity<Game> guess(@PathVariable String id, @RequestBody Guess guess) {
         Game game = gameService.guess(id, guess.getCandidateId());
         return new ResponseEntity<>(game, new HttpHeaders(), HttpStatus.OK);
