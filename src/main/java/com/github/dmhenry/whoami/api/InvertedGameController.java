@@ -1,6 +1,6 @@
 package com.github.dmhenry.whoami.api;
 
-import com.github.dmhenry.whoami.application.StandardGameService;
+import com.github.dmhenry.whoami.application.InvertedGameService;
 import com.github.dmhenry.whoami.application.model.Game;
 import com.github.dmhenry.whoami.application.model.Guess;
 import io.swagger.annotations.Api;
@@ -17,18 +17,18 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1.0/games/standard")
-@Api(value = "Who Am I?", description = "Pick the face that matches the name.")
+@RequestMapping("/api/v1.0/games/inverted")
+@Api(value = "Who Am I?", description = "Pick the name that matches the face.")
 @SuppressWarnings("unused")
-class StandardGameController {
+class InvertedGameController {
 
     @Autowired
-    private StandardGameService standardGameService;
+    private InvertedGameService invertedGameService;
 
     @PostMapping
-    @ApiOperation(value = "Set up a new standard game.", response = Game.class)
+    @ApiOperation(value = "Set up a new inverted game.", response = Game.class)
     ResponseEntity<Game> setupNewGame() {
-        Game game = standardGameService.setupGame();
+        Game game = invertedGameService.setupGame();
 
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newGameUri =
@@ -40,22 +40,22 @@ class StandardGameController {
     @GetMapping("{id}")
     @ApiOperation(value = "Get the game state.", response = Game.class)
     ResponseEntity<Game> getGame(@PathVariable String id) {
-        Game game = standardGameService.getGame(id);
+        Game game = invertedGameService.getGame(id);
         return new ResponseEntity<>(game, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping
-    @ApiOperation(value = "Get the standard game list.", response = List.class)
+    @ApiOperation(value = "Get the inverted game list.", response = List.class)
     ResponseEntity<List<Game>> getGames() {
-        List<Game> games = standardGameService.getGames();
+        List<Game> games = invertedGameService.getGames();
         return new ResponseEntity<>(games, new HttpHeaders(), HttpStatus.OK);
     }
 
     @PostMapping("{id}")
     @Valid
-    @ApiOperation(value = "Take a stab at matching the person to the image.", response = Game.class)
+    @ApiOperation(value = "Take a stab at matching the image to the face.", response = Game.class)
     ResponseEntity<Game> guess(@PathVariable String id, @RequestBody Guess guess) {
-        Game game = standardGameService.guess(id, guess.getCandidateId());
+        Game game = invertedGameService.guess(id, guess.getCandidateId());
         return new ResponseEntity<>(game, new HttpHeaders(), HttpStatus.OK);
     }
 
