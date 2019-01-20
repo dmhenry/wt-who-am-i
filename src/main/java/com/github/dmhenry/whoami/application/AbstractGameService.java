@@ -2,28 +2,29 @@ package com.github.dmhenry.whoami.application;
 
 import com.github.dmhenry.whoami.application.model.Candidate;
 import com.github.dmhenry.whoami.application.model.Game;
+import com.github.dmhenry.whoami.application.model.Profile;
+import com.github.dmhenry.whoami.data.game.GameDao;
 import com.github.dmhenry.whoami.data.profile.ProfileDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
-abstract class BaseGameService {
-
-    // TODO: add proper cache
-    private final Map<String, Game> gameCache = new ConcurrentHashMap<>();
+abstract class AbstractGameService {
 
     private static final int DEFAULT_CANDIDATE_COUNT = 6;
-    private static AtomicLong id = new AtomicLong();
 
     @Autowired
-    ProfileDao profileDao;
+    private ProfileDao profileDao;
+    @Autowired
+    private GameDao gameDao;
 
     public abstract Game setupGame();
+
+    static int getDefaultCandidateCount() {
+        return DEFAULT_CANDIDATE_COUNT;
+    }
 
     public Game guess(String gameId, int candidateIndex) {
         Game game = fetch(gameId);
@@ -32,28 +33,29 @@ abstract class BaseGameService {
         return game;
     }
 
-    public Game getGame(String gameId) {
-        return gameCache.get(gameId);
-    }
 
     public List<Game> getGames() {
-        return new ArrayList<>(gameCache.values());
+        return gameDao.getGames();
     }
 
-    static int getDefaultCandidateCount() {
-        return DEFAULT_CANDIDATE_COUNT;
+    public Game getGame(String gameId) {
+        return gameDao.getGame(gameId);
     }
 
     boolean save(Game game) {
-        return (gameCache.put(game.getId(), game) == null);
+        return gameDao.save(game);
     }
 
-    private Game fetch(String id) {
-        return gameCache.get(id);
+    Game fetch(String id) {
+        return gameDao.fetch(id);
+    }
+
+    List<Profile> getProfiles() {
+        return profileDao.getProfiles();
     }
 
     String getNextId() {
-        return Long.toString(id.incrementAndGet());
+        return Long.toString(gameDao.getNextId());
     }
 
     Candidate selectRandomSolution(Set<Candidate> candidates) {

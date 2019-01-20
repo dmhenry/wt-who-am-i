@@ -15,7 +15,7 @@ public class MattGameService extends StandardGameService {
 
     @Override
     public Game setupGame() {
-        List<Profile> profiles = filter(profileDao.getProfiles());
+        List<Profile> profiles = filter(getProfiles());
 
         String id = getNextId();
         Set<Candidate> candidates = selectRandomCandidates(profiles, getDefaultCandidateCount());

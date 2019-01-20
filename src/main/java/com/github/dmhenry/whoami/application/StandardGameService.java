@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Component
-public class StandardGameService extends BaseGameService {
+public class StandardGameService extends AbstractGameService {
 
     @Override
     public Game setupGame() {
-        List<Profile> profiles = profileDao.getProfiles();
+        List<Profile> profiles = getProfiles();
 
         String id = getNextId();
         Set<Candidate> candidates = selectRandomCandidates(profiles, getDefaultCandidateCount());
