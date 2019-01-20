@@ -13,3 +13,6 @@ To use Postman to hit the API, download [Who Am I.postman_collection.json](https
 The Postman collection is dependent upon [Heroku.postman_environment.json](https://github.com/dmhenry/wt-who-am-i/blob/master/Postman), so download it as well. You can import the environment by clicking on the gear at the top right in Postman, then clicking the 'Import' button at the bottom of the modal window. Choose the environment file you downloaded. Don't forget to actually select the 'Environment' at the top rigth in Postman before running.
 
 Optionally, you can download [Local.postman_environment.json](https://github.com/dmhenry/wt-who-am-i/blob/master/Postman) for running locally. You can import the environment by clicking on the gear at the top right in Postman, then clicking the 'Import' button at the bottom of the modal window. Choose the environment file you downloaded. Don't forget to actually select the 'Environment' at the top rigth in Postman before running.
+
+# Running Locally
+The project should be easily importable in any IDE using a Spring Boot template. IntelliJ IDEA configuration files (.idea, who-am-i.iml) have been committed for ease of setup.
