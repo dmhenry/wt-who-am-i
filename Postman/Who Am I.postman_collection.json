@@ -16,7 +16,7 @@
 							"script": {
 								"id": "16ed42ee-80cf-4f61-ad7a-67fa7a8fc30c",
 								"exec": [
-									"pm.environment.set(\"gameUri\", postman.getResponseHeader(\"Location\"));"
+									"pm.environment.set(\"standardGameUri\", postman.getResponseHeader(\"Location\"));"
 								],
 								"type": "text/javascript"
 							}
@@ -82,16 +82,16 @@
 							"raw": "{\n\t\n}"
 						},
 						"url": {
-							"raw": "{{gameUri}}",
+							"raw": "{{standardGameUri}}",
 							"host": [
-								"{{gameUri}}"
+								"{{standardGameUri}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Guess",
+					"name": "Random Guess",
 					"event": [
 						{
 							"listen": "test",
@@ -138,13 +138,451 @@
 							"raw": "{\n\t\"candidateId\": {{candidateId}}\n}"
 						},
 						"url": {
-							"raw": "{{gameUri}}",
+							"raw": "{{standardGameUri}}",
 							"host": [
-								"{{gameUri}}"
+								"{{standardGameUri}}"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Standard Game List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api}}/games/standard",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"games",
+								"standard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matt Game",
+			"item": [
+				{
+					"name": "New Game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16ed42ee-80cf-4f61-ad7a-67fa7a8fc30c",
+								"exec": [
+									"pm.environment.set(\"mattGameUri\", postman.getResponseHeader(\"Location\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": " en_US",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "{{api}}/games/matt",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"games",
+								"matt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Game",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "{{mattGameUri}}",
+							"host": [
+								"{{mattGameUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Random Guess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16ed42ee-80cf-4f61-ad7a-67fa7a8fc30c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7ad26b5f-6e93-4dce-b54f-cf4ca0111c55",
+								"exec": [
+									"pm.environment.set('candidateId', Math.floor(Math.random() * 6));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"candidateId\": {{candidateId}}\n}"
+						},
+						"url": {
+							"raw": "{{mattGameUri}}",
+							"host": [
+								"{{mattGameUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Matt Game List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api}}/games/matt",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"games",
+								"matt"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "91d01ba0-39d9-4717-8254-6c97e1533e28",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab34e5ba-3e8d-496f-ab9e-bfb7d5ca8566",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Inverted Game",
+			"item": [
+				{
+					"name": "New Game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16ed42ee-80cf-4f61-ad7a-67fa7a8fc30c",
+								"exec": [
+									"pm.environment.set(\"invertedGameUri\", postman.getResponseHeader(\"Location\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": " en_US",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "{{api}}/games/inverted",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"games",
+								"inverted"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Game",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "{{invertedGameUri}}",
+							"host": [
+								"{{invertedGameUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Random Guess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16ed42ee-80cf-4f61-ad7a-67fa7a8fc30c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7ad26b5f-6e93-4dce-b54f-cf4ca0111c55",
+								"exec": [
+									"pm.environment.set('candidateId', Math.floor(Math.random() * 6));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"candidateId\": {{candidateId}}\n}"
+						},
+						"url": {
+							"raw": "{{invertedGameUri}}",
+							"host": [
+								"{{invertedGameUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inverted Game List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept-Language",
+								"type": "text",
+								"value": " en_US"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api}}/games/inverted",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"games",
+								"inverted"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "89795833-70de-4727-8292-14d09aea2e65",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b344034-49a3-4cb5-9ded-63b4b711d426",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
