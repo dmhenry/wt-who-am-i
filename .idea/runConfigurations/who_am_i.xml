@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="who-am-i" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="who-am-i" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.github.dmhenry.whoami.WhoAmIApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
