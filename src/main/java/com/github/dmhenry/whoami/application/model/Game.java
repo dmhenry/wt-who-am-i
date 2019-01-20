@@ -11,6 +11,7 @@ public abstract class Game {
 
     private final String id;
     private boolean solved;
+    private Integer guessesToSolve;
     private int guesses;
     private final List<Candidate> candidates = new ArrayList<>();
 
@@ -47,12 +48,19 @@ public abstract class Game {
         return solution;
     }
 
+    public Integer getGuessesToSolve() {
+        return guessesToSolve;
+    }
+
     public boolean isSolution(Candidate candidate) {
+        ++guesses;
         boolean correct = candidate.equals(solution);
         if (correct) {
+            if (!solved) {
+                guessesToSolve = guesses;
+            }
             solved = true;
         }
-        ++guesses;
         return correct;
     }
 
