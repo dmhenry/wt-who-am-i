@@ -1,15 +1,16 @@
 package com.github.dmhenry.whoami.application.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.ResourceSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Game {
+public abstract class Game extends ResourceSupport {
 
-    private final String id;
+    private final String gameId;
     private boolean solved;
     private Integer guessesToSolve;
     private int guesses;
@@ -18,18 +19,18 @@ public abstract class Game {
     @JsonIgnore
     private final Candidate solution;
 
-    public Game(Set<? extends Candidate> candidates, Candidate solution, String id) {
+    public Game(Set<? extends Candidate> candidates, Candidate solution, String gameId) {
         if (!candidates.contains(solution)) {
             throw new IllegalStateException("candidates must include solution");
         }
 
         this.candidates.addAll(candidates);
         this.solution = solution;
-        this.id = id;
+        this.gameId = gameId;
     }
 
-    public String getId() {
-        return id;
+    public String getGameId() {
+        return gameId;
     }
 
     public boolean isSolved() {

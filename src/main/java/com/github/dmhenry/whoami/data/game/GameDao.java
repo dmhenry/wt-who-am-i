@@ -21,7 +21,7 @@ public class GameDao {
     }
 
     public boolean save(Game game) {
-        return (gameCache.put(game.getId(), game) == null);
+        return (gameCache.put(game.getGameId(), game) == null);
     }
 
     public Game fetch(String id) {

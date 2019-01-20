@@ -16,6 +16,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/api/v1.0/games/matt")
 @Api(value = "Who Am I?", description = "Pick the Matt that matches the name.")
@@ -32,7 +35,7 @@ class MattGameController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newGameUri =
-                ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(game.getId()).toUri();
+                ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(game.getGameId()).toUri();
         responseHeaders.setLocation(newGameUri);
         return new ResponseEntity<>(game, responseHeaders, HttpStatus.CREATED);
     }
@@ -49,6 +52,7 @@ class MattGameController {
     @ApiOperation(value = "Get the Matt game list.", response = List.class)
     ResponseEntity<List<Game>> getGames() {
         List<Game> games = mattGameService.getGames();
+        games.forEach(this::updateGameWithLinks);
         return new ResponseEntity<>(games, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -58,6 +62,10 @@ class MattGameController {
     ResponseEntity<Game> guess(@PathVariable String id, @RequestBody Guess guess) {
         Game game = mattGameService.guess(id, guess.getCandidateId());
         return new ResponseEntity<>(game, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    private void updateGameWithLinks(Game game) {
+        game.add(linkTo(methodOn(MattGameController.class).getGames()).slash(game.getGameId()).withSelfRel());
     }
 
 }
